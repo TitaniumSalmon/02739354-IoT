@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "author": "Perapon SIRIWAT",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard-half", "id": "bb1", "top": -127.8, "left": -448.4, "attrs": {} },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 153.6, "left": -283.16, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": -51.6, "left": -409, "attrs": { "color": "red" } },
+    {
+      "type": "wokwi-led",
+      "id": "led2",
+      "top": -51.6,
+      "left": -380.2,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led3",
+      "top": -51.6,
+      "left": -274.6,
+      "attrs": { "color": "blue" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led4",
+      "top": -51.6,
+      "left": -255.4,
+      "attrs": { "color": "blue" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led5",
+      "top": -51.6,
+      "left": -236.2,
+      "attrs": { "color": "blue" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 95.9,
+      "left": -342.1,
+      "rotate": 90,
+      "attrs": { "color": "green", "xray": "1" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "bb1:18b.j", "bb1:bn.15", "black", [ "v0" ] ],
+    [ "bb1:22b.j", "bb1:bn.18", "black", [ "v0" ] ],
+    [ "bb1:20b.j", "bb1:bn.16", "black", [ "v0" ] ],
+    [ "bb1:4b.j", "bb1:bn.3", "black", [ "v0" ] ],
+    [ "bb1:7b.j", "bb1:bn.6", "black", [ "v0" ] ],
+    [ "esp:GND.2", "bb1:bn.19", "black", [ "v0" ] ],
+    [ "esp:17", "bb1:21b.h", "green", [ "h86.4", "v-268.8" ] ],
+    [ "bb1:19b.i", "esp:18", "green", [ "v0", "h144", "v240" ] ],
+    [ "esp:16", "bb1:23b.g", "green", [ "h96", "v-288" ] ],
+    [ "bb1:5b.j", "esp:13", "green", [ "v0" ] ],
+    [ "esp:12", "bb1:8b.i", "green", [ "v0", "h-67.05" ] ],
+    [ "btn1:2.r", "esp:14", "red", [ "v0" ] ],
+    [ "led1:A", "bb1:5b.f", "", [ "$bb" ] ],
+    [ "led1:C", "bb1:4b.f", "", [ "$bb" ] ],
+    [ "led2:A", "bb1:8b.f", "", [ "$bb" ] ],
+    [ "led2:C", "bb1:7b.f", "", [ "$bb" ] ],
+    [ "led3:A", "bb1:19b.f", "", [ "$bb" ] ],
+    [ "led3:C", "bb1:18b.f", "", [ "$bb" ] ],
+    [ "led4:A", "bb1:21b.f", "", [ "$bb" ] ],
+    [ "led4:C", "bb1:20b.f", "", [ "$bb" ] ],
+    [ "led5:A", "bb1:23b.f", "", [ "$bb" ] ],
+    [ "led5:C", "bb1:22b.f", "", [ "$bb" ] ],
+    [ "btn1:1.r", "esp:GND.1", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
