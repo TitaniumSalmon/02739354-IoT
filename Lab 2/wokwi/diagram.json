@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard-half", "id": "bb1", "top": 16.2, "left": -362, "attrs": {} },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 129.6,
+      "left": -154.15,
+      "rotate": 90,
+      "attrs": { "value": "150" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 230.6, "left": -307.2, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 25.2,
+      "left": -149.8,
+      "attrs": { "color": "red" }
+    },
+    { "type": "wokwi-led", "id": "led2", "top": 25.2, "left": -121, "attrs": { "color": "blue" } },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 129.6,
+      "left": -125.35,
+      "rotate": 90,
+      "attrs": { "value": "150" }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": 348.8,
+      "left": -268,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:5V", "bb1:bp.25", "red", [ "h0" ] ],
+    [ "bb1:bn.25", "esp:GND.1", "black", [ "v-1.3", "h49.6", "v-57.6" ] ],
+    [ "bb1:bn.1", "relay1:GND", "black", [ "v0" ] ],
+    [ "relay1:VCC", "bb1:bp.2", "red", [ "h0" ] ],
+    [ "relay1:IN", "esp:22", "blue", [ "h-19.2", "v38.2", "h451.2", "v-259.2" ] ],
+    [ "led1:A", "bb1:23t.a", "", [ "$bb" ] ],
+    [ "led1:C", "bb1:22t.a", "", [ "$bb" ] ],
+    [ "bb1:22t.e", "bb1:bn.18", "black", [ "v0" ] ],
+    [ "bb1:bp.20", "relay1:COM", "red", [ "v0" ] ],
+    [ "relay1:NC", "bb1:23b.j", "red", [ "v-1.2", "h68.4" ] ],
+    [ "led2:A", "bb1:26t.a", "", [ "$bb" ] ],
+    [ "led2:C", "bb1:25t.a", "", [ "$bb" ] ],
+    [ "relay1:NO", "bb1:26b.j", "red", [ "h0" ] ],
+    [ "r1:1", "bb1:23t.e", "", [ "$bb" ] ],
+    [ "r1:2", "bb1:23b.i", "", [ "$bb" ] ],
+    [ "r2:1", "bb1:26t.e", "", [ "$bb" ] ],
+    [ "r2:2", "bb1:26b.i", "", [ "$bb" ] ],
+    [ "bb1:25t.e", "bb1:bn.20", "black", [ "v0" ] ],
+    [ "ldr1:GND", "bb1:bn.24", "black", [ "h0" ] ],
+    [ "bb1:bp.23", "ldr1:VCC", "red", [ "v0" ] ],
+    [ "ldr1:DO", "esp:23", "orange", [ "h249.6", "v-346.2" ] ]
+  ],
+  "dependencies": {}
+}

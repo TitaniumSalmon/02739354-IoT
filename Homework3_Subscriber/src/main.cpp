@@ -150,7 +150,7 @@ if (humidityValue < 30){
 } else {
   digitalWrite(LEDYellowPin, LOW);
 }
-
+  displayLCD(7, 0, payloadMsg);
   displayLCD(0, 0, "Hum " + String(Humidity) + " %",true);
   displayLCD(0, 1, "Temp " + String(Temp) + " C",false);
 }
