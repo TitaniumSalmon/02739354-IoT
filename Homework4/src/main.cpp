@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <PubSubClient.h>
 #include <WiFi.h>
+int outputState[4] = {0, 0, 0, 0};
 // WIFI config
 const char *ssid = "Wokwi-GUEST";
 const char *password = "";
@@ -94,7 +95,7 @@ void publishLightStatus(const char* status_1, const char* status_2, const char* 
 }
 
 void mqttCallback(char* topic, byte* payload, unsigned int length) {
-  String message, lightStatus_1 = "0", lightStatus_2 = "0", lightStatus_3 = "0", buzzerStatus_1 = "0", publishMessage;
+  String message;
   
   Serial.print("Message arrived [");
   Serial.print(topic);
@@ -105,53 +106,53 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println(message);
 
-  //MARK: Message Payload
+  // MARK: Message Payload
   // message payload: {"led1":1} or {"led1":0}
   if (message.indexOf("\"led1\":1") != -1) {
-    digitalWrite(RELAY_LED_RED_PIN, HIGH); // turn the LED on (HIGH is the voltage level)
-    lightStatus_1 = "1";
-    Serial.println("LED is ON");
+    digitalWrite(RELAY_LED_RED_PIN, HIGH);
+    outputState[0] = 1;
+    Serial.println("LED1 is ON");
   } 
   else if (message.indexOf("\"led1\":0") != -1) {
-    digitalWrite(RELAY_LED_RED_PIN, LOW); // turn the LED off by making the voltage LOW
-    lightStatus_1 = "0";
-    Serial.println("LED is OFF");
+    digitalWrite(RELAY_LED_RED_PIN, LOW);
+    outputState[0] = 0;
+    Serial.println("LED1 is OFF");
   }
-  // message payload: {"led2":1} or {"led2":0}
+  
   if (message.indexOf("\"led2\":1") != -1) {
-    digitalWrite(RELAY_LED_YELLOW_PIN, HIGH); // turn the LED on (HIGH is the voltage level)
-    lightStatus_2 = "1";
-    Serial.println("LED is ON");
+    digitalWrite(RELAY_LED_YELLOW_PIN, HIGH);
+    outputState[1] = 1;
+    Serial.println("LED2 is ON");
   } 
   else if (message.indexOf("\"led2\":0") != -1) {
-    digitalWrite(RELAY_LED_YELLOW_PIN, LOW); // turn the LED off by making the voltage LOW
-    lightStatus_2 = "0";
-    Serial.println("LED is OFF");
+    digitalWrite(RELAY_LED_YELLOW_PIN, LOW);
+    outputState[1] = 0;
+    Serial.println("LED2 is OFF");
   }
-  // message payload: {"led3":1} or {"led3":0}
+  
   if (message.indexOf("\"led3\":1") != -1) {
-    digitalWrite(RELAY_LED_GREEN_PIN, HIGH); // turn the LED on (HIGH is the voltage level)
-    lightStatus_3 = "1";
-    Serial.println("LED is ON");
+    digitalWrite(RELAY_LED_GREEN_PIN, HIGH);
+    outputState[2] = 1;
+    Serial.println("LED3 is ON");
   } 
   else if (message.indexOf("\"led3\":0") != -1) {
-    digitalWrite(RELAY_LED_GREEN_PIN, LOW); // turn the LED off by making the voltage LOW
-    lightStatus_3 = "0";
-    Serial.println("LED is OFF");
+    digitalWrite(RELAY_LED_GREEN_PIN, LOW);
+    outputState[2] = 0;
+    Serial.println("LED3 is OFF");
   }
-  // message payload: {"buzzer1":1} or {"buzzer1":0}
+  
   if (message.indexOf("\"buzzer\":1") != -1) {
-    digitalWrite(BUZZER_PIN, HIGH); // turn the LED on (HIGH is the voltage level)
-    buzzerStatus_1 = "1";
-    Serial.println("LED is ON");
+    digitalWrite(BUZZER_PIN, HIGH);
+    outputState[3] = 1;
+    Serial.println("Buzzer is ON");
   } 
   else if (message.indexOf("\"buzzer\":0") != -1) {
-    digitalWrite(BUZZER_PIN, LOW); // turn the LED off by making the voltage LOW
-    buzzerStatus_1 = "0";
-    Serial.println("LED is OFF");
+    digitalWrite(BUZZER_PIN, LOW);
+    outputState[3] = 0;
+    Serial.println("Buzzer is OFF");
   }
-  // send the status to the topic_pub
-  publishLightStatus(lightStatus_1.c_str(), lightStatus_2.c_str(), lightStatus_3.c_str(), buzzerStatus_1.c_str());
+  
+  publishLightStatus(String(outputState[0]).c_str(), String(outputState[1]).c_str(), String(outputState[2]).c_str(), String(outputState[3]).c_str());
 }
 
 void setup()
