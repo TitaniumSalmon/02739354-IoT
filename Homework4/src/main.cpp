@@ -76,7 +76,7 @@ void publishLightStatus(const char* status_1, const char* status_2, const char* 
   // Prepare JSON message
   publishMessage = "{\"data\":{";
   publishMessage += "\"led1\":";
-  publishMessage += status_1; // one decimal place
+  publishMessage += status_1;
   publishMessage += ",";
   publishMessage += "\"led2\":";
   publishMessage += status_2;
